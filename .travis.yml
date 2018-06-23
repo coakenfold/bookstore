@@ -6,18 +6,17 @@ cache:
   directories:
   - node_modules
 notifications:
-  email: 
+  email:
     - web@oakenfold.ca
 branches:
   only:
   - master
 before_script:
+  ## we use the '&' ampersand which tells
+  ## travis to run this process in the background
+  ## else it would block execution and hang travis
   - npx cypress verify &
-after_success:
-- npx codecov
-deploy:
-  provider: heroku
-  api_key:
-    secure: "YOUR ENCRYPTED API KEY"
-  on:
-    branch: master
+## script:
+##  - npm run ...
+## after_success:
+## - npx codecov
