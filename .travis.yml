@@ -18,7 +18,7 @@ before_script:
   ## else it would block execution and hang travis
   ##- npx cypress verify &
   - npm install -D webpack-cli
-  - npx webpack -p --config /home/travis/build/coakenfold/bookstore/webpack.config.js --display-error-details --progress
+  - npx webpack -p --display-error-details --progress
 script:
   - npm run test:run
 ## after_success:
