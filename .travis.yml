@@ -1,0 +1,23 @@
+sudo: false
+language: node_js
+node_js: 8
+install: true
+cache:
+  directories:
+  - node_modules
+notifications:
+  email: 
+    - web@oakenfold.ca
+branches:
+  only:
+  - master
+before_script:
+  - npx cypress verify &
+after_success:
+- npx codecov
+deploy:
+  provider: heroku
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
+  on:
+    branch: master

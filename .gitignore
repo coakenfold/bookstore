@@ -1,0 +1,11 @@
+.DS_Store
+.eslintcache
+*.log
+build
+coverage
+cypress/screenshots
+cypress/videos
+dist
+node_modules
+npm-debug.log*
+package-lock.json

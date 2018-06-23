@@ -1,0 +1,87 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "Full stack demo",
+  "repository": "https://github.com/coakenfold/bookstore.git",
+  "author": "Chad Oakenfold <web@oakenfold.ca> (https://oakenfold.ca/)",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "",
+    "dev": "",
+    "build": "",
+    "test": "jest --watch",
+    "test:run": "jest --coverage",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
+    "precommit": "lint-staged",
+    "validate": "npm run test:run --silent"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "cypress": "^3.0.1",
+    "cypress-testing-library": "^1.2.0",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.9.1",
+    "faker": "^4.1.0",
+    "husky": "^0.14.3",
+    "jest": "^22.4.4",
+    "lint-staged": "^7.2.0",
+    "node": "^8.9.4",
+    "prettier": "^1.13.5",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-test-renderer": "^16.4.1"
+  },
+  "lint-staged": {
+    "linters": {
+      "**/!(README).+(md|css|json)": [
+        "prettier --write",
+        "git add"
+      ],
+      "**/+(src|test)/**/*.js": [
+        "prettier --write",
+        "eslint --cache --cache-location node_modules/.cache/eslint",
+        "git add"
+      ]
+    }
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true,
+      "es6": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "rules": {
+      "require-await": "off",
+      "import/prefer-default-export": "off",
+      "babel/new-cap": "off",
+      "import/no-unassigned-import": "off",
+      "react/prop-types": "off",
+      "no-console": "warn",
+      "no-nested-ternary": "off",
+      "jest/no-disabled-tests": "off",
+      "complexity": [
+        "error",
+        12
+      ],
+      "react/no-did-update-set-state": "off",
+      "react/prefer-stateless-function": "off",
+      "react/no-did-mount-set-state": "off"
+    }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage"
+  ]
+}
