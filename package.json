@@ -7,9 +7,9 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "start": "",
-    "dev": "",
-    "build": "",
+    "start": "webpack-dev-server",
+    "dev": "webpack-dev-server",
+    "build": "webpack",
     "test": "npx ./node_modules/jest/bin/jest.js --watch",
     "test:run": "npx jest --coverage",
     "cy:run": "cypress run",
@@ -18,15 +18,21 @@
     "precommit": "lint-staged",
     "validate": "npm run test:run --silent"
   },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
   "devDependencies": {
-    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "cypress": "^3.0.1",
     "cypress-testing-library": "^1.2.0",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.9.1",
     "faker": "^4.1.0",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^0.14.3",
     "jest": "^22.4.4",
     "lint-staged": "^7.2.0",
@@ -34,7 +40,10 @@
     "prettier": "^1.13.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-test-renderer": "^16.4.1"
+    "react-test-renderer": "^16.4.1",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
   },
   "lint-staged": {
     "linters": {
@@ -50,6 +59,13 @@
     }
   },
   "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
     "env": {
       "browser": true,
       "node": true,
