@@ -6,7 +6,7 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 })
 
 module.exports = {
-  entry: __dirname + '/client/index.js',
+  entry: 'client/index.js',
   module: {
     rules: [
       {
