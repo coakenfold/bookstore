@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npx webpack --config webpack.config.js && node index.js",
     "start-server": "json-server --watch ./src/server/db.json --port 3001",
-    "dev": "concurrently 'webpack --config webpack.config.js --watch' 'nodemon index.js' 'npm run start-server'",
+    "dev": "concurrently 'webpack --config webpack.config.js --watch --mode=development' 'nodemon index.js' 'npm run start-server'",
     "build": "npx webpack -p --config webpack.config.js --display-error-details --progress --mode=production",
     "test": "npx jest",
     "test:coverage": "npx jest --coverage",
@@ -22,7 +22,8 @@
     "axios": "^0.18.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "helmet": "^3.12.1"
+    "helmet": "^3.12.1",
+    "react-search-input": "^0.11.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
