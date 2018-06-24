@@ -8,7 +8,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "webpack-dev-server",
+    "start-server": "nodemon ./src/server/index.js localhost 5000",
+    "start-client": "webpack-dev-server --port 3000 --https --mode=development",
+    "dev": "concurrently 'npm run start-server' 'npm run start-client'",
     "build": "webpack",
     "test": "npx ./node_modules/jest/bin/jest.js --watch",
     "test:run": "npx jest --coverage",
@@ -20,7 +22,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "express": "^4.16.3"
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -29,6 +33,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.6.0",
     "copy": "^0.3.2",
     "cypress": "^3.0.1",
     "cypress-testing-library": "^1.2.0",
@@ -40,13 +45,18 @@
     "jest": "^22.4.4",
     "lint-staged": "^7.2.0",
     "node": "^8.9.4",
+    "nodemon": "^1.17.5",
     "prettier": "^1.13.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-test-renderer": "^16.4.1",
+    "spdy": "^3.4.7",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
+  },
+  "devServer": {
+    "https": true
   },
   "lint-staged": {
     "linters": {
