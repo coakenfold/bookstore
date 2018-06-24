@@ -1,12 +1,12 @@
 var HTMLWebpackPlugin = require('html-webpack-plugin')
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-  template: __dirname + '/client/index.html',
+  template: __dirname + '/src/client/index.html',
   filename: 'index.html',
   inject: 'body',
 })
 
 module.exports = {
-  entry: __dirname + '/client/index.js',
+  entry: __dirname + '/src/client/index.js',
   module: {
     rules: [
       {
@@ -23,7 +23,7 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
-    path: __dirname + '/build/client',
+    path: __dirname + '/build',
   },
   plugins: [HTMLWebpackPluginConfig],
 }
