@@ -12,5 +12,5 @@ module.exports = {
       functions: 10,
       lines: 10,
     },
-  }
-};
+  },
+}

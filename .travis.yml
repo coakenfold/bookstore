@@ -20,6 +20,6 @@ before_script:
   - npm install -D webpack-cli
   - npx webpack -p --config /home/travis/build/coakenfold/bookstore/webpack.config.js --display-error-details --progress
 script:
-  - npm run test:run
+  - npm run test
 ## after_success:
 ## - npx codecov
