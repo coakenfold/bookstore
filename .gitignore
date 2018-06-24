@@ -1,7 +1,6 @@
 .DS_Store
 .eslintcache
 *.log
-build
 coverage
 cypress/screenshots
 cypress/videos
