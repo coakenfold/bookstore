@@ -7,7 +7,7 @@ class App extends React.Component {
     this.state = { status: 'not connected' }
   }
   componentDidMount() {
-    axios.get(`https://localhost:5000`).then(res => {
+    axios.get(`/api`).then(res => {
       const { status } = res.data
       this.setState({ status })
     })
@@ -15,7 +15,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" id="test">
-        <h1>react: App.js!</h1>
+        <h1>React: App.js!</h1>
         <p>Server: {this.state.status}</p>
       </div>
     )
