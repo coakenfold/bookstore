@@ -16,7 +16,7 @@
     "cy:open": "cypress open",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
     "precommit": "lint-staged",
-    "postinstall": "npx webpack -p --config webpack.config.js"
+    "postinstall": "webpack"
   },
   "dependencies": {
     "axios": "^0.18.0",
