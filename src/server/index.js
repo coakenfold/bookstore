@@ -4,6 +4,7 @@ const express = require('express')
 const fs = require('fs')
 //const path = require('path')
 const PORT = process.env.PORT || 5000
+const cors = require('cors')
 
 const options = {
   key: fs.readFileSync(__dirname + '/server.key'),
@@ -15,11 +16,11 @@ const app = express()
 var helmet = require('helmet')
 app.use(helmet())
 app.disable('x-powered-by')
-app.get('/', (req, res) => {
-  res.status(200).json({ log: 'setting up' })
+app.get('/', cors(), (req, res) => {
+  res.status(200).json({ status: 'connected' })
 })
 
 spdy.createServer(options, app).listen(PORT, error => {
   if (error) return process.exit(1)
-  console.log(`Server running at https://localhost:${PORT}`)
+  console.log(`!!! Server running at https://localhost:${PORT}`)
 })
