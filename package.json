@@ -5,9 +5,9 @@
   "repository": "https://github.com/coakenfold/bookstore.git",
   "author": "Chad Oakenfold <web@oakenfold.ca> (https://oakenfold.ca/)",
   "license": "MIT",
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "node index.js",
     "dev": "webpack-dev-server",
     "build": "webpack",
     "test": "npx ./node_modules/jest/bin/jest.js --watch",
