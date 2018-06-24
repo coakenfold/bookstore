@@ -9,7 +9,7 @@
   "scripts": {
     "start": "npx webpack --config webpack.config.js && node index.js",
     "dev": "concurrently 'webpack --config webpack.config.js --watch' 'nodemon index.js'",
-    "build": "npx webpack -p --config webpack.config.js --display-error-details --progress",
+    "build": "npx webpack -p --config webpack.config.js --display-error-details --progress --mode=production",
     "test": "npx jest",
     "test:coverage": "npx jest --coverage",
     "cy:run": "cypress run",

@@ -9,7 +9,6 @@ var helmet = require('helmet')
 const options = {
   key: fs.readFileSync(__dirname + '/src/server/server.key'),
   cert: fs.readFileSync(__dirname + '/src/server/server.crt'),
-  ca: fs.readFileSync(__dirname + '/src/server/server.csr'),
 }
 const app = express()
 
