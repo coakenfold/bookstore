@@ -5,9 +5,9 @@
   "repository": "https://github.com/coakenfold/bookstore.git",
   "author": "Chad Oakenfold <web@oakenfold.ca> (https://oakenfold.ca/)",
   "license": "MIT",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "node ./server/index.js",
     "dev": "webpack-dev-server",
     "build": "webpack",
     "test": "npx ./node_modules/jest/bin/jest.js --watch",
@@ -19,7 +19,8 @@
     "validate": "npm run test:run --silent"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
