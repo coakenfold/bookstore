@@ -33,22 +33,6 @@
       "genre": "non-fiction",
       "price": "8.99",
       "isbn": "isbn4"
-    },
-    {
-      "isbn": "asd",
-      "title": "adfs",
-      "author": "dfas",
-      "genre": "adfs",
-      "price": "dfas",
-      "id": 5
-    },
-    {
-      "isbn": "NEW",
-      "title": "adfs",
-      "author": "dfas",
-      "genre": "adfs",
-      "price": "dfas",
-      "id": 6
     }
   ]
 }

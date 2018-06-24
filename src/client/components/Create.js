@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Add extends React.Component {
+class Create extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -14,7 +14,6 @@ class Add extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
-  componentDidMount() {}
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
@@ -46,45 +45,50 @@ class Add extends React.Component {
         <h2>Add</h2>
         <form onSubmit={this.handleSubmit}>
           <fieldset>
-            <label>
+            <label htmlFor={`create-isbn`}>
               ISBN:
               <input
+                id={`create-isbn`}
                 name="isbn"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.isbn}
               />
             </label>
-            <label>
+            <label htmlFor={`create-title`}>
               Title:
               <input
+                id={`create-title`}
                 name="title"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.title}
               />
             </label>
-            <label>
+            <label htmlFor={`create-author`}>
               Author:
               <input
+                id={`create-author`}
                 name="author"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.author}
               />
             </label>
-            <label>
+            <label htmlFor={`create-genre`}>
               Genre:
               <input
+                id={`create-genre`}
                 name="genre"
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.genre}
               />
             </label>
-            <label>
+            <label htmlFor={`create-price`}>
               Price:
               <input
+                id={`create-price`}
                 name="price"
                 type="text"
                 onChange={this.handleChange}
@@ -100,4 +104,4 @@ class Add extends React.Component {
   }
 }
 
-module.exports = Add
+module.exports = Create

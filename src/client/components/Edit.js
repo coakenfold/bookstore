@@ -66,51 +66,46 @@ class Edit extends React.Component {
           onSubmit={this.handleSubmit}
         >
           <fieldset disabled={this.state.editing ? undefined : true}>
-            <label>
-              ISBN:
-              <input
-                name="isbn"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.isbn}
-              />
-            </label>
-            <label>
-              Title:
-              <input
-                name="title"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.title}
-              />
-            </label>
-            <label>
-              Author:
-              <input
-                name="author"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.author}
-              />
-            </label>
-            <label>
-              Genre:
-              <input
-                name="genre"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.genre}
-              />
-            </label>
-            <label>
-              Price:
-              <input
-                name="price"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.price}
-              />
-            </label>
+            <label htmlFor={`edit-${this.props.book.id}-isbn`}>ISBN:</label>
+            <input
+              id={`edit-${this.props.book.id}-isbn`}
+              name="isbn"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.isbn}
+            />
+            <label htmlFor={`edit-${this.props.book.id}-title`}>Title:</label>
+            <input
+              id={`edit-${this.props.book.id}-title`}
+              name="title"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.title}
+            />
+            <label htmlFor={`edit-${this.props.book.id}-author`}>Author:</label>
+            <input
+              id={`edit-${this.props.book.id}-author`}
+              name="author"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.author}
+            />
+            <label htmlFor={`edit-${this.props.book.id}-genre`}>Genre:</label>
+            <input
+              id={`edit-${this.props.book.id}-genre`}
+              name="genre"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.genre}
+            />
+            <label htmlFor={`edit-${this.props.book.id}-price`}>Price:</label>
+            <input
+              id={`edit-${this.props.book.id}-price`}
+              name="price"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.price}
+            />
             <button type="submit">Save</button>
           </fieldset>
         </form>

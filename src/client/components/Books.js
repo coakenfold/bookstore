@@ -3,7 +3,7 @@ import React from 'react'
 import axios from 'axios'
 import SearchInput, { createFilter } from 'react-search-input'
 import Edit from './Edit'
-import Add from './Add'
+import Create from './Create'
 import Delete from './Delete'
 const KEYS_TO_FILTERS = ['isbn', 'title', 'author', 'genre', 'price']
 
@@ -24,7 +24,6 @@ class Search extends React.Component {
   getBooks() {
     axios.get(`http://localhost:3001/books`).then(res => {
       const books = res.data
-      console.log('get', books)
       this.setState({ books })
     })
   }
@@ -37,11 +36,12 @@ class Search extends React.Component {
       this.getBooks()
     })
   }
-  handleDelete(book) {
-    /*axios.post(`http://localhost:3001/books`, book).then(res => {
-      console.log('handleCreate post', res)
+  handleDelete(id) {
+    console.log('delete', id)
+    axios.delete(`http://localhost:3001/books/${id}`).then(res => {
+      console.log('handleDelete post', res)
       this.getBooks()
-    })*/
+    })
   }
   handleEdit(update) {
     console.log(update)
@@ -73,11 +73,11 @@ class Search extends React.Component {
     const filteredBooks = this.state.books.filter(filter)
     return (
       <div>
-        <Add onCreate={this.handleCreate} />
-        <Delete onDelete={this.handleDelete} />
+        <Create onCreate={this.handleCreate} />
         <form className="Search" onSubmit={this.submitHandler}>
-          <h1>Search!</h1>
+          <label htmlFor="search">Search!</label>
           <input
+            id="search"
             type="text"
             name="title"
             placeholder="title"
@@ -94,6 +94,11 @@ class Search extends React.Component {
                 <p>Genre: {book.genre}</p>
                 <p>Price: {book.price}</p>
                 <Edit book={book} onEdit={this.handleEdit} />
+                <Delete
+                  isbn={book.isbn}
+                  id={book.id}
+                  onSubmit={this.handleDelete}
+                />
               </li>
             )
           })}
