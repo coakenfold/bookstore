@@ -1,11 +1,20 @@
 /* eslint-disable no-console, no-unused-vars */
 import React from 'react'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import FormGroup from '@material-ui/core/FormGroup'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
+import Typography from '@material-ui/core/Typography'
 
 class Edit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      editing: false,
+      expanded: false,
       isbn: '',
       title: '',
       author: '',
@@ -14,6 +23,7 @@ class Edit extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleExpander = this.handleExpander.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
@@ -26,15 +36,29 @@ class Edit extends React.Component {
       price: this.props.book.price,
     })
   }
+  handleExpander(e, expanded) {
+    console.log(1, e, expanded)
+    let newState = { expanded }
+    if (expanded === false) {
+      newState = {
+        isbn: this.props.book.isbn,
+        title: this.props.book.title,
+        author: this.props.book.author,
+        genre: this.props.book.genre,
+        price: this.props.book.price,
+      }
+    }
+    this.setState(newState)
+  }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
   handleClick() {
-    this.setState({ editing: true })
+    //this.setState({ expanded: true })
   }
   handleSubmit(e) {
     e.preventDefault()
-    console.log('?', this.props.id)
+
     const { isbn, title, author, genre, price } = this.state
     this.props.onEdit({
       id: this.props.book.id,
@@ -47,7 +71,7 @@ class Edit extends React.Component {
   }
   handleCancel() {
     this.setState({
-      editing: false,
+      expanded: false,
       isbn: this.props.book.isbn,
       title: this.props.book.title,
       author: this.props.book.author,
@@ -59,56 +83,70 @@ class Edit extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={this.handleClick}>Edit</div>
-        <div onClick={this.handleCancel}>Cancel</div>
-        <form
-          className={this.state.editing ? 'editing' : undefined}
-          onSubmit={this.handleSubmit}
-        >
-          <fieldset disabled={this.state.editing ? undefined : true}>
-            <label htmlFor={`edit-${this.props.book.id}-isbn`}>ISBN:</label>
-            <input
-              id={`edit-${this.props.book.id}-isbn`}
-              name="isbn"
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.isbn}
-            />
-            <label htmlFor={`edit-${this.props.book.id}-title`}>Title:</label>
-            <input
-              id={`edit-${this.props.book.id}-title`}
-              name="title"
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.title}
-            />
-            <label htmlFor={`edit-${this.props.book.id}-author`}>Author:</label>
-            <input
-              id={`edit-${this.props.book.id}-author`}
-              name="author"
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.author}
-            />
-            <label htmlFor={`edit-${this.props.book.id}-genre`}>Genre:</label>
-            <input
-              id={`edit-${this.props.book.id}-genre`}
-              name="genre"
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.genre}
-            />
-            <label htmlFor={`edit-${this.props.book.id}-price`}>Price:</label>
-            <input
-              id={`edit-${this.props.book.id}-price`}
-              name="price"
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.price}
-            />
-            <button type="submit">Save</button>
-          </fieldset>
-        </form>
+        <ExpansionPanel onChange={this.handleExpander}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>Edit</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <form onSubmit={this.handleSubmit}>
+              <fieldset disabled={this.state.expanded ? undefined : true}>
+                <FormGroup row>
+                  <TextField
+                    id={`edit-${this.props.book.id}-isbn`}
+                    name="isbn"
+                    label="ISBN"
+                    margin="normal"
+                    onChange={this.handleChange}
+                    value={this.state.isbn}
+                  />
+                  <TextField
+                    id={`edit-${this.props.book.id}-title`}
+                    name="title"
+                    label="Title"
+                    margin="normal"
+                    onChange={this.handleChange}
+                    value={this.state.title}
+                  />
+
+                  <TextField
+                    id={`edit-${this.props.book.id}-author`}
+                    name="author"
+                    label="Author"
+                    margin="normal"
+                    onChange={this.handleChange}
+                    value={this.state.author}
+                  />
+
+                  <TextField
+                    id={`edit-${this.props.book.id}-genre`}
+                    name="genre"
+                    label="Genre"
+                    margin="normal"
+                    onChange={this.handleChange}
+                    value={this.state.genre}
+                  />
+
+                  <TextField
+                    id={`edit-${this.props.book.id}-price`}
+                    name="price"
+                    label="Price"
+                    margin="normal"
+                    onChange={this.handleChange}
+                    value={this.state.price}
+                  />
+                </FormGroup>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Save
+                </Button>
+              </fieldset>
+            </form>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </div>
     )
   }

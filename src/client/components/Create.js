@@ -1,5 +1,7 @@
 import React from 'react'
-
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import FormGroup from '@material-ui/core/FormGroup'
 class Create extends React.Component {
   constructor(props) {
     super(props)
@@ -42,62 +44,56 @@ class Create extends React.Component {
   render() {
     return (
       <div>
-        <h2>Add</h2>
         <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <label htmlFor={`create-isbn`}>
-              ISBN:
-              <input
-                id={`create-isbn`}
-                name="isbn"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.isbn}
-              />
-            </label>
-            <label htmlFor={`create-title`}>
-              Title:
-              <input
-                id={`create-title`}
-                name="title"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.title}
-              />
-            </label>
-            <label htmlFor={`create-author`}>
-              Author:
-              <input
-                id={`create-author`}
-                name="author"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.author}
-              />
-            </label>
-            <label htmlFor={`create-genre`}>
-              Genre:
-              <input
-                id={`create-genre`}
-                name="genre"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.genre}
-              />
-            </label>
-            <label htmlFor={`create-price`}>
-              Price:
-              <input
-                id={`create-price`}
-                name="price"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.price}
-              />
-            </label>
-            <button type="submit">Create</button>
-            <div onClick={this.handleCancel}>Cancel</div>
-          </fieldset>
+          <FormGroup row>
+            <TextField
+              id="create-isbn"
+              name="isbn"
+              label="ISBN"
+              margin="normal"
+              onChange={this.handleChange}
+              value={this.state.isbn}
+            />
+            <TextField
+              id="create-title"
+              name="title"
+              label="Title"
+              margin="normal"
+              onChange={this.handleChange}
+              value={this.state.title}
+            />
+
+            <TextField
+              id="create-author"
+              name="author"
+              label="Author"
+              margin="normal"
+              onChange={this.handleChange}
+              value={this.state.author}
+            />
+
+            <TextField
+              id="create-genre"
+              name="genre"
+              label="Genre"
+              margin="normal"
+              onChange={this.handleChange}
+              value={this.state.genre}
+            />
+
+            <TextField
+              id="create-price"
+              name="price"
+              label="Price"
+              margin="normal"
+              onChange={this.handleChange}
+              value={this.state.price}
+            />
+          </FormGroup>
+
+          <Button variant="contained" color="primary" type="submit">
+            Add Book
+          </Button>
         </form>
       </div>
     )

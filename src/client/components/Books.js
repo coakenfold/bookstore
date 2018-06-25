@@ -2,9 +2,12 @@
 import React from 'react'
 import axios from 'axios'
 import SearchInput, { createFilter } from 'react-search-input'
-import Edit from './Edit'
+
+import TextField from '@material-ui/core/TextField'
+
 import Create from './Create'
-import Delete from './Delete'
+import BookAdmin from './BookAdmin'
+
 const KEYS_TO_FILTERS = ['isbn', 'title', 'author', 'genre', 'price']
 
 class Search extends React.Component {
@@ -32,20 +35,16 @@ class Search extends React.Component {
   }
   handleCreate(book) {
     axios.post(`http://localhost:3001/books`, book).then(res => {
-      console.log('handleCreate post', res)
       this.getBooks()
     })
   }
   handleDelete(id) {
-    console.log('delete', id)
+    console.log(111, id)
     axios.delete(`http://localhost:3001/books/${id}`).then(res => {
-      console.log('handleDelete post', res)
       this.getBooks()
     })
   }
   handleEdit(update) {
-    console.log(update)
-
     axios
       .put(`http://localhost:3001/books/${update.id}`, {
         isbn: update.isbn,
@@ -55,9 +54,7 @@ class Search extends React.Component {
         price: update.price,
       })
       .then(res => {
-        console.log(1)
         if (res.status === 200) {
-          console.log(2)
           this.getBooks()
         }
       })
@@ -73,36 +70,36 @@ class Search extends React.Component {
     const filteredBooks = this.state.books.filter(filter)
     return (
       <div>
-        <Create onCreate={this.handleCreate} />
+        <h1 className="App__title">Book Club</h1>
         <form className="Search" onSubmit={this.submitHandler}>
-          <label htmlFor="search">Search!</label>
-          <input
+          <TextField
             id="search"
-            type="text"
-            name="title"
-            placeholder="title"
+            label="Search"
+            margin="normal"
             onChange={this.handleInputChange}
           />
         </form>
-        <ul>
+        <ul className="books">
           {filteredBooks.map(book => {
             return (
-              <li key={book.id}>
-                <p>ISBN: {book.isbn}</p>
-                <p>Title: {book.title}</p>
-                <p>Author: {book.author}</p>
-                <p>Genre: {book.genre}</p>
-                <p>Price: {book.price}</p>
-                <Edit book={book} onEdit={this.handleEdit} />
-                <Delete
-                  isbn={book.isbn}
-                  id={book.id}
-                  onSubmit={this.handleDelete}
+              <li className="book" key={book.id}>
+                <div className="book__data">
+                  <p>ISBN: {book.isbn}</p>
+                  <p>Title: {book.title}</p>
+                  <p>Author: {book.author}</p>
+                  <p>Genre: {book.genre}</p>
+                  <p>Price: {book.price}</p>
+                </div>
+                <BookAdmin
+                  book={book}
+                  onEdit={this.handleEdit}
+                  onDelete={this.handleDelete}
                 />
               </li>
             )
           })}
         </ul>
+        <Create onCreate={this.handleCreate} />
       </div>
     )
   }

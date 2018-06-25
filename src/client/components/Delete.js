@@ -1,4 +1,6 @@
 import React from 'react'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 class Delete extends React.Component {
   constructor(props) {
@@ -15,27 +17,30 @@ class Delete extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     if (this.props.isbn === this.state.isbn) {
-      this.props.onSubmit(this.props.id)
+      this.props.onDelete(this.props.id)
     }
   }
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <label htmlFor={`delete-${this.props.id}-isbn`}>
-              Type the isbn to delete
-            </label>
-            <input
-              id={`delete-${this.props.id}-isbn`}
-              onChange={this.handleChange}
-              value={this.state.isbn}
-              name="isbn"
-              type="text"
-              placeholder=""
-            />
-            <button>Delete</button>
-          </fieldset>
+          <TextField
+            id={`delete-${this.props.id}-isbn`}
+            name="isbn"
+            label="Type the isbn to delete"
+            margin="normal"
+            onChange={this.handleChange}
+            value={this.state.isbn}
+          />
+
+          <Button
+            size="small"
+            variant="contained"
+            color="secondary"
+            type="submit"
+          >
+            Delete
+          </Button>
         </form>
       </div>
     )
