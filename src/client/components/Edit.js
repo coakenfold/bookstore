@@ -58,10 +58,10 @@ class Edit extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-
+    console.log(1113, this.props.book._id)
     const { isbn, title, author, genre, price } = this.state
     this.props.onEdit({
-      id: this.props.book.id,
+      id: this.props.book._id,
       isbn,
       title,
       author,
@@ -92,7 +92,7 @@ class Edit extends React.Component {
               <fieldset disabled={this.state.expanded ? undefined : true}>
                 <FormGroup row>
                   <TextField
-                    id={`edit-${this.props.book.id}-isbn`}
+                    id={`edit-${this.props.book._id}-isbn`}
                     name="isbn"
                     label="ISBN"
                     margin="normal"
@@ -100,7 +100,7 @@ class Edit extends React.Component {
                     value={this.state.isbn}
                   />
                   <TextField
-                    id={`edit-${this.props.book.id}-title`}
+                    id={`edit-${this.props.book._id}-title`}
                     name="title"
                     label="Title"
                     margin="normal"
@@ -109,7 +109,7 @@ class Edit extends React.Component {
                   />
 
                   <TextField
-                    id={`edit-${this.props.book.id}-author`}
+                    id={`edit-${this.props.book._id}-author`}
                     name="author"
                     label="Author"
                     margin="normal"
@@ -118,7 +118,7 @@ class Edit extends React.Component {
                   />
 
                   <TextField
-                    id={`edit-${this.props.book.id}-genre`}
+                    id={`edit-${this.props.book._id}-genre`}
                     name="genre"
                     label="Genre"
                     margin="normal"
@@ -127,7 +127,7 @@ class Edit extends React.Component {
                   />
 
                   <TextField
-                    id={`edit-${this.props.book.id}-price`}
+                    id={`edit-${this.props.book._id}-price`}
                     name="price"
                     label="Price"
                     margin="normal"

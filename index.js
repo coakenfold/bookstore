@@ -3,106 +3,116 @@ const PORT = process.env.PORT || 3000
 const express = require('express')
 const path = require('path')
 const helmet = require('helmet')
+const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
-const passportJWT = require('passport-jwt')
-const jwt = require('jsonwebtoken')
 const LocalStrategy = require('passport-local').Strategy
-
-const ExtractJWT = passportJWT.ExtractJwt
-const JWTStrategy = passportJWT.Strategy
+const User = require('./src/server/models/userModel')
+const Book = require('./src/server/models/bookModel')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn
 const BAD_SECRET = 'HARDCODINGtheSECRETforEXPEDIENCY'
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: 'email',
-      passwordField: 'password',
-    },
-    function(email, password, cb) {
-      //Assume there is a DB module pproviding a global UserModel
-      /*return UserModel.findOne({ email, password })
-        .then(user => {
-          if (!user) {
-            return cb(null, false, { message: 'Incorrect email or password.' })
-          }
-
-          return cb(null, user, {
-            message: 'Logged In Successfully',
-          })
-        })
-        .catch(err => {
-          return cb(err)
-        })*/
+mongoose.connect(
+  process.env.MONGOLAB_URI,
+  function(error) {
+    if (error) {
+      console.error(error)
+    } else {
+      console.log('mongo connected')
     }
-  )
+  }
 )
 
 passport.use(
-  new JWTStrategy(
-    {
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: BAD_SECRET,
-    },
-    function(jwtPayload, cb) {
-      //find the user in db if needed
-      /*      return UserModel.findOneById(jwtPayload.id)
-        .then(user => {
-          return cb(null, user)
-        })
-        .catch(err => {
-          return cb(err)
-        })*/
-    }
-  )
+  new LocalStrategy(function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) {
+        return done(err)
+      }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' })
+      }
+      if (user.validPassword(password) === false) {
+        return done(null, false, { message: 'Incorrect password.' })
+      }
+      return done(null, user)
+    })
+  })
 )
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id)
+})
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user)
+  })
+})
 
 const app = express()
 
 app.disable('x-powered-by')
 app.use(helmet())
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, 'build')))
-app.get('/test', (req, res) => {
-  console.log('Route: /test')
-  res.status(200).json({ status: '/test' })
-})
-
-app.get('/api', (req, res) => {
-  console.log('Route: /api')
-  res.status(200).json({ status: '/api' })
-})
-
-app.get(
-  '/admin',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    console.log('Route: /admin')
-    res.status(200).json({ status: '/admin!' })
-  }
+app.use(cookieParser())
+app.use(
+  session({ secret: BAD_SECRET, resave: false, saveUninitialized: false })
 )
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(express.static(path.join(__dirname, 'build')))
 
-app.post('/auth', function(req, res, next) {
-  passport.authenticate('local', { session: false }, (err, user, info) => {
-    console.log(err)
-    if (err || !user) {
-      return res.status(400).json({
-        message: info ? info.message : 'Login failed',
-        user: user,
-      })
-    }
+app.get('/admin', ensureLoggedIn(), (req, res) => {
+  console.log('Route: /admin!')
+  res.status(200).json({ status: 'admin' })
+})
+app.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/admin',
+    failureRedirect: '/',
+  })
+)
+app.get('/logout', function(req, res) {
+  req.logout()
+  res.redirect('/')
+})
 
-    req.login(user, { session: false }, err => {
+app.get('/books', function(req, res) {
+  Book.find({}, (err, books) => {
+    res.status(200).json(books)
+  })
+})
+app.post('/books', function(req, res) {
+  const book = new Book(req.body)
+  book.save()
+  res.status(200).json({ success: true })
+})
+app.delete('/books/:bookId', function(req, res) {
+  Book.findById(req.params.bookId, (err, book) => {
+    book.remove(err => {
       if (err) {
-        res.send(err)
+        res.status(500).send(err)
+      } else {
+        res.status(200).json({ success: true })
       }
-
-      const token = jwt.sign(user, BAD_SECRET)
-
-      return res.json({ user, token })
     })
   })
 })
-
+app.put('/books/:bookId', function(req, res) {
+  Book.findById(req.params.bookId, (err, book) => {
+    console.log('111', req.body.title)
+    book.isbn = req.body.isbn
+    book.title = req.body.title
+    book.author = req.body.author
+    book.genre = req.body.genre
+    book.price = req.body.price
+    book.save()
+    res.status(200).json({ success: true })
+  })
+})
 app.listen(PORT, error => {
   if (error) {
     console.error(error)
@@ -121,8 +131,8 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log('!!!!error!!!!')
-  console.log(err)
+  console.log('error handler')
+
   // set locals, only providing error in development
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}

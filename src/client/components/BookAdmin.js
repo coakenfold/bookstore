@@ -13,7 +13,7 @@ class BookAdmin extends React.Component {
         <Edit book={this.props.book} onEdit={this.props.onEdit} />
         <Delete
           isbn={this.props.book.isbn}
-          id={this.props.book.id}
+          id={this.props.book._id}
           onDelete={this.props.onDelete}
         />
       </div>
