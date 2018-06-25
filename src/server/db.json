@@ -3,7 +3,7 @@
     {
       "isbn": "isbn1",
       "title": "I hope this reaches her in time",
-      "author": "r.h. Sin",
+      "author": "R.H. Sinsdfsdf",
       "genre": "poetry",
       "price": "7.91",
       "id": 1
@@ -18,37 +18,21 @@
       "id": 2
     },
     {
-      "id": 3,
+      "isbn": "isbn3",
       "title": "Beneath a Scarlet Sky: A Novel",
-      "author": "Mark Sullivan ",
+      "author": "Mark Sullivan Jr",
       "genre": "fiction",
       "price": "7.77",
-      "isbn": "isbn3"
+      "id": 3
     },
     {
-      "id": 4,
+      "isbn": "isbn44",
       "title":
         "On Writing Well, 25th Anniversary: The Classic Guide to Writing Nonfiction",
       "author": "William Zinsser",
       "genre": "non-fiction",
       "price": "8.99",
-      "isbn": "isbn4"
-    },
-    {
-      "isbn": "asd",
-      "title": "adfs",
-      "author": "dfas",
-      "genre": "adfs",
-      "price": "dfas",
-      "id": 5
-    },
-    {
-      "isbn": "NEW",
-      "title": "adfs",
-      "author": "dfas",
-      "genre": "adfs",
-      "price": "dfas",
-      "id": 6
+      "id": 4
     }
   ]
 }
