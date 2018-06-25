@@ -1,0 +1,54 @@
+{
+  "books": [
+    {
+      "isbn": "isbn1",
+      "title": "I hope this reaches her in time",
+      "author": "r.h. Sin",
+      "genre": "poetry",
+      "price": "7.91",
+      "id": 1
+    },
+    {
+      "title":
+        "Future Politics: Living Together in a World Transformed by Tech",
+      "author": "Jamie Susskind",
+      "genre": "politics",
+      "price": "27.50",
+      "isbn": "isbn2",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "title": "Beneath a Scarlet Sky: A Novel",
+      "author": "Mark Sullivan ",
+      "genre": "fiction",
+      "price": "7.77",
+      "isbn": "isbn3"
+    },
+    {
+      "id": 4,
+      "title":
+        "On Writing Well, 25th Anniversary: The Classic Guide to Writing Nonfiction",
+      "author": "William Zinsser",
+      "genre": "non-fiction",
+      "price": "8.99",
+      "isbn": "isbn4"
+    },
+    {
+      "isbn": "asd",
+      "title": "adfs",
+      "author": "dfas",
+      "genre": "adfs",
+      "price": "dfas",
+      "id": 5
+    },
+    {
+      "isbn": "NEW",
+      "title": "adfs",
+      "author": "dfas",
+      "genre": "adfs",
+      "price": "dfas",
+      "id": 6
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const PORT = process.env.PORT || 3000
-const spdy = require('spdy')
+// const spdy = require('spdy')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
@@ -27,12 +27,13 @@ app.get('/api', (req, res) => {
   console.log('Route: /')
   res.sendFile(path.resolve(__dirname, 'src/server/index.html'))
 })*/
+// spdy.createServer(options, app)
 
-spdy.createServer(options, app).listen(PORT, error => {
+app.listen(PORT, error => {
   if (error) {
     console.error(error)
     return process.exit(1)
   } else {
-    console.log(`!!! Client running at https://localhost:${PORT}`)
+    console.log(`http://localhost:${PORT}`)
   }
 })
