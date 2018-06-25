@@ -1,10 +1,11 @@
 /* eslint-disable no-console, no-unused-vars */
 import React from 'react'
 import axios from 'axios'
+
 import SearchInput, { createFilter } from 'react-search-input'
 
 import TextField from '@material-ui/core/TextField'
-
+import Button from '@material-ui/core/Button'
 import Create from './Create'
 import BookAdmin from './BookAdmin'
 
@@ -16,6 +17,8 @@ class Search extends React.Component {
     this.state = {
       searchTerm: '',
       books: [],
+      loginUsername: '',
+      loginPassword: '',
     }
     this.submitHandler = this.submitHandler.bind(this)
     this.handleCreate = this.handleCreate.bind(this)
@@ -23,9 +26,14 @@ class Search extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.getBooks = this.getBooks.bind(this)
+    this.submitLoginHandler = this.submitLoginHandler.bind(this)
+    this.handleLoginInputChange = this.handleLoginInputChange.bind(this)
+  }
+  componentDidMount() {
+    this.getBooks()
   }
   getBooks() {
-    axios.get(`http://localhost:3001/books`).then(res => {
+    axios.get(`/books`).then(res => {
       const books = res.data
       this.setState({ books })
     })
@@ -33,20 +41,26 @@ class Search extends React.Component {
   handleInputChange(e) {
     this.setState({ searchTerm: e.target.value })
   }
+  handleLoginInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
   handleCreate(book) {
-    axios.post(`http://localhost:3001/books`, book).then(res => {
-      this.getBooks()
+    axios.post(`/books`, book).then(res => {
+      if (res.data.success) {
+        this.getBooks()
+      }
     })
   }
   handleDelete(id) {
-    console.log(111, id)
-    axios.delete(`http://localhost:3001/books/${id}`).then(res => {
-      this.getBooks()
+    axios.delete(`/books/${id}`).then(res => {
+      if (res.data.success) {
+        this.getBooks()
+      }
     })
   }
   handleEdit(update) {
     axios
-      .put(`http://localhost:3001/books/${update.id}`, {
+      .put('/books/' + update.id, {
         isbn: update.isbn,
         title: update.title,
         author: update.author,
@@ -54,16 +68,24 @@ class Search extends React.Component {
         price: update.price,
       })
       .then(res => {
-        if (res.status === 200) {
+        if (res.data.success) {
           this.getBooks()
         }
       })
   }
+  submitLoginHandler(e) {
+    e.preventDefault()
+    axios
+      .post(`/login`, {
+        username: this.state.loginUsername,
+        password: this.state.loginPassword,
+      })
+      .then(res => {
+        console.log(res)
+      })
+  }
   submitHandler(e) {
     e.preventDefault()
-  }
-  componentDidMount() {
-    this.getBooks()
   }
   render() {
     const filter = createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
@@ -71,6 +93,31 @@ class Search extends React.Component {
     return (
       <div>
         <h1 className="App__title">Book Club</h1>
+
+        <form className="" method="post" onSubmit={this.submitLoginHandler}>
+          <TextField
+            id="loginUsername"
+            name="loginUsername"
+            label="Name"
+            margin="normal"
+            onChange={this.handleLoginInputChange}
+            value={this.state.loginUsername}
+          />
+          <TextField
+            id="loginPassword"
+            name="loginPassword"
+            label="Password"
+            margin="normal"
+            type="password"
+            onChange={this.handleLoginInputChange}
+            value={this.state.loginPassword}
+          />
+
+          <Button variant="contained" color="primary" type="submit">
+            Login
+          </Button>
+        </form>
+
         <form className="Search" onSubmit={this.submitHandler}>
           <TextField
             id="search"
@@ -82,7 +129,7 @@ class Search extends React.Component {
         <ul className="books">
           {filteredBooks.map(book => {
             return (
-              <li className="book" key={book.id}>
+              <li className="book" key={book._id}>
                 <div className="book__data">
                   <p>ISBN: {book.isbn}</p>
                   <p>Title: {book.title}</p>
